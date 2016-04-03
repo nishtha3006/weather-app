@@ -65,15 +65,21 @@ public class MainActivity extends AppCompatActivity {
         String location = sharedPrefs.getString(
                 getString(R.string.pref1_key),
                 getString(R.string.pref1_default));
+
+        // Using the URI scheme for showing a location found on a map.  This super-handy
+        // intent can is detailed in the "Common Intents" page of Android's developer site:
+        // http://developer.android.com/guide/components/intents-common.html#Maps
         Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
                 .appendQueryParameter("q", location)
                 .build();
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
+
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
-            Log.d("sunshine", "Couldn't call " + location + ", no receiving apps installed!");
+            Log.d("hello", "Couldn't call " + location + ", no receiving apps installed!");
         }
     }
 }
